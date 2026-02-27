@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo, toggleTodo, removeTodo, selectAllTodos } from "./features/todos/todosSlice";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+  const todos = useSelector(selectAllTodos);
+
+  const handleAdd = () => {
+    dispatch(
+      addTodo({
+        id: crypto.randomUUID(),
+        title: "Nueva tarea",
+        completed: false
+      })
+    );
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div style={{ padding: 20 }}>
+      <h1>Todo Pro</h1>
+
+      <button onClick={handleAdd}>
+        Agregar tarea
+      </button>
+
+      <ul>
+        {todos.map((todo) => (
+          <li
+            key={todo.id}
+            style={{
+              display: "flex",
+              gap: "10px",
+              alignItems: "center"
+            }}
+          >
+            <span
+              onClick={() => dispatch(toggleTodo(todo.id))}
+              style={{
+                cursor: "pointer",
+                textDecoration: todo.completed ? "line-through" : "none",
+              }}>
+              {todo.title}
+            </span>
+
+            <button onClick={() => dispatch(removeTodo(todo.id))}>
+              ❌
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;

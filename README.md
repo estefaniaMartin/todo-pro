@@ -1,73 +1,96 @@
-# React + TypeScript + Vite
+# 🧠 Todo Pro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación de gestión de tareas desarrollada con React + Vite y Redux Toolkit, utilizando estado normalizado mediante `createEntityAdapter`.
 
-Currently, two official plugins are available:
+Este proyecto fue realizado como challenge técnico, aplicando buenas prácticas de arquitectura y manejo de estado escalable.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+(Agregar aquí el link cuando esté deployado en GitHub Pages)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tecnologías utilizadas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React
+- Vite
+- TypeScript
+- Redux Toolkit
+- React-Redux
+- Entity Adapter (estado normalizado)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🧩 Arquitectura
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+La aplicación utiliza Redux Toolkit con `createEntityAdapter` para normalizar el estado de las tareas.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### ¿Por qué estado normalizado?
+En lugar de almacenar un array simple, el estado se estructura como:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```ts
+{
+  ids: [],
+  entities: {}
+}
+
+## Ventajas del estado normalizado:
+- Acceso directo por ID (O(1))
+- Mejor rendimiento en grandes volúmenes de datos
+- Métodos automáticos como addOne, removeOne
+- Selectores optimizados
+- Mayor escalabilidad
+
+## 📦 Funcionalidades
+
+- Crear tarea
+- Marcar como completada
+- Desmarcar tarea
+- Eliminar tarea
+- Render dinámico con React
+- Estado centralizado con Redux
+
+## 🧪 Instalación local
+
+### Clonar el repositorio:
+
+git clone https://github.com/estefaniaMartin/todo-pro.git
+
+### Instalar dependencias:
+
+npm install
+
+### Ejecutar entorno de desarrollo:
+
+npm run dev
+
+## 🌍 Deploy
+
+###Build de producción:
+
+npm run build
+
+Preparado para deploy en GitHub Pages.
+
+
+## 📌 Decisiones técnicas
+
+- Se utilizó Vite por su rapidez y entorno moderno.
+- Se eligió Redux Toolkit para simplificar configuración y reducir boilerplate.
+- Se implementó createEntityAdapter para un manejo profesional y escalable del estado.
+- Separación clara entre lógica de estado y UI.
+- Código tipado con TypeScript.
+
+## 📈 Posibles mejoras futuras
+
+- Persistencia en localStorage
+- Integración con API REST
+- Filtros (tareas completadas / pendientes)
+- Tests unitarios
+- Manejo de async con createAsyncThunk
+
+##👩‍💻 Autora
+
+Desarrollado por ESTEFANIA MARTIN
